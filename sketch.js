@@ -82,8 +82,7 @@ function keyReleased() {
 function showBoats(){
 
   if(boat.length > 0){
-    if(boat[boat.length -1] === undefined || 
-      boat[boat.length -1].body.position.x < width -300){
+    if(boat[boat.length -1] === undefined || boat[boat.length -1].body.position.x < width -300){
 
       var positions = [-20,-40,-60,-50];
       var position = random(positions);
@@ -96,7 +95,8 @@ function showBoats(){
       if(boat[i]){
        Matter.Body.setVelocity(boat[i].body, {x:-2 ,y:0})
        boat[i].display();
-      } else {
+      }
+      else {
         boat[i];
       }
     }
@@ -120,13 +120,12 @@ function collisionB_B(index){
       if (collision.collided){
 
         boat[i].remove(i);
-        
+      
         World.remove(world,balls[index].body);
         delete balls[index];
-  
-      }
 
+     }
     }
-  
+
   }
 }

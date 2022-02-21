@@ -20,7 +20,7 @@ class CannonBall {
 
   remove(index){
 
-    Matter.Body.setVelocity(this.body, {x:0, y:0});
+    Matter.Body.setVelocity(this.body, {x:0,y:0});
 
     setTimeout(() =>{
 
@@ -28,16 +28,14 @@ class CannonBall {
 
       delete balls[index];
 
-
     },1000);
   }
-
   display() {
-
     var angle = this.body.angle;
     var pos = this.body.position;
+
     push();
-    translate(pos.x, pos.y);
+    tranlate(pos.x, pos.y);
     rotate(angle);
     imageMode(CENTER);
     image(this.image, 0, 0, this.r, this.r);
