@@ -1,6 +1,6 @@
 class Boat{
 
-    constructor(x,y,width,height,boatPos, boatAnimation){
+    constructor(x,y,width,height,boatPos,boatAnimation){
 
         this.animation = boatAnimation;
         this.speed = 0.05;
@@ -23,6 +23,7 @@ class Boat{
         //var pos = this.body.position;
 
         var index = floor(this.speed % this.animation.length);
+
 
         push();
         translate(this.body.position.x,this.body.position.y);
@@ -49,6 +50,7 @@ class Boat{
     }
 
     animate(){
-        this.speed += 0.05;
+        this.speed+=0.05;
+
     }
 }
