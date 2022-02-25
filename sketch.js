@@ -9,9 +9,17 @@ var canvas, angle, tower, ground, cannon;
 var balls = [];
 var boat = [];
 
+var boatAnimation = [];
+var boatSpritedata;
+var boatSpritesheet;
+
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   towerImage = loadImage("./assets/tower.png");
+
+  boatSpritedata = loadJSON("assets/boat/boat.json");
+  boatSpritesheet = loadImage("assets/boat/boat.png");
+
 }
 
 function setup() {
@@ -29,7 +37,14 @@ function setup() {
 
   cannon = new Cannon(180, 110, 130, 100, angle);
   
-  //boat = new Boat(width -80, height - 100, 170,170,-80)
+  var boatFrames = boatSpritedata.frames;
+  for (var i=0; i<boatFrames.length; i++){
+
+    var pos = boatFrames[i].position;
+    var img = boatSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+
+    boatAnimation.push(img);
+  }
 }
 
 function draw() {
@@ -82,12 +97,11 @@ function keyReleased() {
 function showBoats(){
 
   if(boat.length > 0){
-    if(boat[boat.length -1] === undefined || 
-      boat[boat.length -1].body.position.x < width -300){
+    if(boat[boat.length -1] === undefined || boat[boat.length -1].body.position.x < width -300){
 
       var positions = [-20,-40,-60,-50];
       var position = random(positions);
-      var boat1 = new Boat (width -80, height - 60, 170, 170,position);
+      var boat1 = new Boat (width -80, height - 60, 170, 170,position, boatAnimation);
 
       boat.push(boat1);
     }
@@ -96,7 +110,9 @@ function showBoats(){
       if(boat[i]){
        Matter.Body.setVelocity(boat[i].body, {x:-2 ,y:0})
        boat[i].display();
-      } else {
+       boat[i].animate();
+      }
+      else {
         boat[i];
       }
     }
@@ -104,7 +120,7 @@ function showBoats(){
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
   else {
 
-    var boat1 = new Boat (width -80, height - 60, 170, 170,-80);
+    var boat1 = new Boat (width -80, height - 60, 170, 170,-80, boatAnimation);
     boat.push(boat1);
   }
 }
@@ -120,13 +136,12 @@ function collisionB_B(index){
       if (collision.collided){
 
         boat[i].remove(i);
-        
+      
         World.remove(world,balls[index].body);
         delete balls[index];
-  
-      }
 
+     }
     }
-  
+
   }
 }
